@@ -17,7 +17,7 @@ std::vector<Point> SinWave::getAllPoints() const {
     auto points = std::vector<Point>();
 
     Point d = endPoint - startPoint;
-    Point n = d / d.length();
+    Point n = Point(-d.getY(), d.getX());
 
     points.push_back(startPoint);
     for (size_t i = 1; i < this->frequency; i++){
