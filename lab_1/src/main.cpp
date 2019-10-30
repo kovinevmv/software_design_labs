@@ -7,6 +7,8 @@
 #include "text.hpp"
 #include "sinsquaretext.hpp"
 
+#include "listset.hpp"
+
 int main(){
     Point point(10, 20);
     std::cout << point << std::endl;
@@ -31,6 +33,35 @@ int main(){
 
     SinSquareText sinSquareText2(sinSquare, text);
     std::cout << sinSquareText2 << std::endl;
+    
+    ListSet<int> listset;
+    listset.insert(1);
+    listset.insert(2);
+    listset.insert(3);
+    listset.insert(3);
+    listset.insert(4);
+    listset.insert(4);
+    
+    listset.insert(1);
+    listset.insert(1);
+    listset.insert(1);
+    listset.insert(1);
+    listset.insert(1);
+    listset.insert(1);
+    listset.insert(-2);
+    listset.insert(0);
+    listset.insert(3);
+    listset.insert(-3);
+    listset.insert(-435);
+    listset.insert(-1);
+    
+    
+    std::cout << "List: ";
+    for (auto it = listset.begin(); it != listset.end(); it++){
+        std::cout << *it << ' ';
+    }
+    std::cout << std::endl;
+    
 
     return 0;
 }

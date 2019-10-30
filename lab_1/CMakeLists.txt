@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(
         src/figures
         include/figures
+        include/container
         )
         
 set(SRC_PREFIX src/figures)        
