@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <ostream>
+#include <typeinfo>
 
 #include "point.hpp"
 #include "color.hpp"
@@ -23,6 +24,9 @@ public:
     const Point& getCenterPoint() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
+    bool operator==(const Shape& other);
+    bool operator<(const Shape& other);
+    bool operator>(const Shape& other);
 
 protected:
     virtual std::ostream& info(std::ostream &o) const = 0;

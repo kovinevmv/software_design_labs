@@ -34,6 +34,7 @@ int main(){
     SinSquareText sinSquareText2(sinSquare, text);
     std::cout << sinSquareText2 << std::endl;
     
+    
     ListSet<int> listset;
     listset.insert(1);
     listset.insert(2);
@@ -54,11 +55,32 @@ int main(){
     listset.insert(-3);
     listset.insert(-435);
     listset.insert(-1);
-    
-    
-    std::cout << "List: ";
-    for (auto it = listset.begin(); it != listset.end(); it++){
-        std::cout << *it << ' ';
+
+
+    std::cout << "List Nums: ";
+    for (auto it = listset.begin(); it != listset.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+
+    auto it = listset.begin();
+    auto it_2 = listset.erase(it);
+    std::cout << "It after delete first on: " << *it_2 << std::endl;
+    it_2 = listset.erase(it);
+    // TODO fix iterator pointer after erase
+    std::cout << "It after delet first on: " << *it_2 << std::endl;
+
+    std::cout << "List Nums: ";
+    for (auto it = listset.begin(); it != listset.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+
+    ListSet<Shape*> listsetfig;
+    listsetfig.insert(&sinSquareText);
+    listsetfig.insert(&sinSquareText);
+
+    std::cout << "List Figures: ";
+    for (auto it = listsetfig.begin(); it != listsetfig.end(); it++){
+        std::cout << *(*it) << ' ';
     }
     std::cout << std::endl;
     

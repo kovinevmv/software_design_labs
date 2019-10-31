@@ -22,11 +22,11 @@ void Point::setY(double y){
     this->y = y;
 }
 
-double Point::distanceTo(const Point& other){
+double Point::distanceTo(const Point& other) const {
     return sqrt(pow(this->x - other.getX(), 2) + pow(this->y - other.getY(), 2));
 }
 
-double Point::length(){
+double Point::length() const {
     return sqrt(pow(this->x, 2) + pow(this->y, 2));
 }
 

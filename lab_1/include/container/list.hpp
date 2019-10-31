@@ -33,9 +33,12 @@ public:
  
     T pop_front();
     T pop_back();
+
+    void clear();
+    iterator erase(iterator);
  
     bool empty() const;
-    void clear();
+    
     size_t size() const;
  
     List<T>& operator=(const List<T>&);
@@ -46,7 +49,7 @@ public:
     const_iterator cbegin();
     const_iterator cend();
 
-private:
+protected:
     Node<T>* head;
     size_t size_;
 };
@@ -99,7 +102,7 @@ void List<T>::insert(iterator it, const T& value){
         return;
     }
     auto current = head;
-    while(current->value != *it)
+    while(!(current->value == *it))
         current = current->next;
 
     if (head->next == nullptr){
@@ -116,7 +119,7 @@ void List<T>::insert(iterator it, const T& value){
 
     auto pnode = new Node<T>(value, current);
     auto current1 = head;
-    while(current1->next->value != *it)
+    while(!(current1->next->value == *it))
         current1 = current1->next;
     current1->next = pnode;
     
@@ -177,6 +180,31 @@ template <class T>
 bool List<T>::empty() const {
     return size_ == 0;
 }
+
+template <class T>
+typename List<T>::iterator List<T>::erase(typename List<T>::iterator it){
+    if (List<T>::empty()){
+        throw std::runtime_error("Empty list");
+    }
+    if (head->value == *it && size_ == 1){
+        pop_front();
+        return iterator();
+    }
+    if (head->value == *it && size_ > 1){
+        auto temp = head;
+        pop_front();
+        head = temp->next;
+        return iterator(head);
+    }
+
+    auto current = head;
+    while(!(current->next->value == *it))
+        current = current->next;
+    
+    current->next = current->next->next;
+    return iterator(current->next);
+}
+
 
 template <class T>
 List<T>& List<T>::operator=(const List<T>& other) {

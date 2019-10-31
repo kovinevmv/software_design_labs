@@ -20,8 +20,8 @@ public:
     void setX(double x);
     void setY(double y);
 
-    double length();
-    double distanceTo(const Point& other);
+    double length() const ;
+    double distanceTo(const Point& other) const;
 
     Point& operator=(Point p);
     Point& operator+=(Point p);

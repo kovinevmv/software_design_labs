@@ -5,7 +5,7 @@
 #include <list.hpp>
  
 template <class T>
-class ListSet{
+class ListSet : protected List<T> {
 public:
     typedef typename List<T>::iterator iterator;
     typedef typename List<T>::const_iterator const_iterator;
@@ -17,8 +17,9 @@ public:
     ListSet<T>& operator=(const ListSet<T>&);
     void insert(const T&);
     bool empty() const;
-    void clear();
 
+    iterator erase(iterator);
+    void clear();
 
     iterator find(const T&);
     const_iterator find(const T&) const;
@@ -31,19 +32,16 @@ public:
 
     const_iterator cbegin() const;
     const_iterator cend() const;
-
-private:
-    List<T> list;
 };
 
 
 template <class T>
-ListSet<T>::ListSet() : list() {};
+ListSet<T>::ListSet() : List<T>() {};
 
 template <class T>
-ListSet<T>::ListSet(const ListSet<T>& other) : list() {
+ListSet<T>::ListSet(const ListSet<T>& other) : List<T>() {
     for(auto it = other.begin(); it != other.end(); it++)
-        list.push_back(*it);
+        List<T>::push_back(*it);
 }
 
 template <class T>
@@ -54,7 +52,7 @@ ListSet<T>::~ListSet() {
 template <class T>
 ListSet<T>& ListSet<T>::operator=(const ListSet<T>& other) {
     for(auto it = other.begin(); it != other.end(); it++)
-        list.push_back(*it);
+        List<T>::push_back(*it);
 
     return *this;
 }
@@ -62,35 +60,40 @@ ListSet<T>& ListSet<T>::operator=(const ListSet<T>& other) {
 
 template <class T>
 void ListSet<T>::insert(const T& value){
-    if (list.empty()){
-        list.push_back(value);
+    if (List<T>::empty()){
+        List<T>::push_back(value);
         return;
-    }    
+    }
     if (find(value) == nullptr){
-        for (auto it = list.begin(); it != list.end(); it++){
+        for (auto it = begin(); it != end(); it++){
             if (*it > value){
-                list.insert(it, value);
+                List<T>::insert(it, value);
                 return;
             }
         }
-        list.push_back(value);
+        List<T>::push_back(value);
     }
     
 }
 
 template <class T>
+typename ListSet<T>::iterator ListSet<T>::erase(ListSet<T>::iterator it){
+    return List<T>::erase(it);
+}
+
+template <class T>
 bool ListSet<T>::empty() const {
-    return list.empty();
+    return List<T>::empty();
 }
 
 template <class T>
 void ListSet<T>::clear() {
-    list.clear();
+    List<T>::clear();
 }
 
 template <class T>
 typename ListSet<T>::iterator ListSet<T>::find(const T& value){
-    for (auto it = list.begin(); it != list.end(); it++){
+    for (auto it = begin(); it != end(); it++){
         if (*it == value){
             return it;
         }
@@ -100,7 +103,8 @@ typename ListSet<T>::iterator ListSet<T>::find(const T& value){
 
 template <class T>
 typename ListSet<T>::const_iterator ListSet<T>::find(const T& value) const{
-    for (auto it = list.cbegin(); it != list.cend(); it++){
+    std::cout << "Find call\n";
+    for (auto it = cbegin(); it != cend(); it++){
         if (*it == value){
             return it;
         }
@@ -111,7 +115,7 @@ typename ListSet<T>::const_iterator ListSet<T>::find(const T& value) const{
 template <class T>
 size_t ListSet<T>::count(const T& value) const{
     size_t count = 0;
-    for (auto it = list.cbegin(); it != list.cend(); it++){
+    for (auto it = cbegin(); it != cend(); it++){
         if (*it == value){
             count += 1;
         }
@@ -121,27 +125,27 @@ size_t ListSet<T>::count(const T& value) const{
 
 template <class T>
 size_t ListSet<T>::size() const{
-    return list.size();
+    return List<T>::size();
 }
 
 template <class T>
 typename ListSet<T>::iterator ListSet<T>::begin() {
-    return list.begin();
+    return List<T>::begin();
 }
  
 template <class T>
 typename ListSet<T>::iterator ListSet<T>::end() {
-    return list.end();
+    return List<T>::end();
 }
 
 template <class T>
 typename ListSet<T>::const_iterator ListSet<T>::cbegin() const{
-    return list.cbegin();
+    return List<T>::cbegin();
 }
  
 template <class T>
 typename ListSet<T>::const_iterator ListSet<T>::cend() const{
-    return list.cend();
+    return List<T>::cend();
 }
 
 
