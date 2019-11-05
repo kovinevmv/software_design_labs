@@ -50,6 +50,17 @@ Color &Color::operator=(Color color) {
     return *this;
 }
 
+bool Color::operator==(const Color& other) {
+    return this->r == other.getR() && 
+           this->g == other.getG() && 
+           this->b == other.getB() && 
+           this->alpha == other.getAlpha();
+}
+
+bool Color::operator!=(const Color& other) {
+    return !(*this == other);
+}
+
 std::ostream & operator<<(std::ostream & os, const Color& color){
     return os << "Color(" << (int)color.r << "," 
                           << (int)color.g << "," 

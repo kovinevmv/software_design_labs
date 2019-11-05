@@ -84,6 +84,13 @@ Point operator-(const Point& point, double a) {
     return point + -a;
 }
 
+bool Point::operator==(const Point& other) {
+    return this->x == other.getX() && this->y == other.getY();
+}
+
+bool Point::operator!=(const Point& other) {
+    return !(*this == other);
+}
 
 std::ostream & operator<<(std::ostream & os, const Point& point){
     return os << "Point(" << point.x << "," << point.y << ")";

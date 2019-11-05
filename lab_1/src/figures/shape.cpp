@@ -4,8 +4,15 @@
 #include "point.hpp"
 #include "shape.hpp"
 
+Shape::Shape(Color color, Point centerPoint) :
+        color(color), centerPoint(centerPoint) {};
+
 const Point& Shape::getCenterPoint() const {
     return centerPoint;
+}
+
+const Color& Shape::getColor() const{
+    return color;
 }
 
 void Shape::move(Point delta) {
@@ -17,7 +24,13 @@ std::ostream &operator<<(std::ostream &os, const Shape &shape) {
 }
 
 bool Shape::operator==(const Shape& other){
-    return typeid(*this).name() == typeid(other).name();
+    return typeid(*this).name() == typeid(other).name() && 
+           this->color == other.getColor() && 
+           this->centerPoint == other.getCenterPoint();
+}
+
+bool Shape::operator!=(const Shape& other){
+    return !(*this == other);
 }
 
 bool Shape::operator<(const Shape& other){

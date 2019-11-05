@@ -9,7 +9,7 @@ class Point {
 public:
     Point(double x, double y): x(x), y(y) {};
     Point() : Point(0, 0) {};
-    Point(const Point &p) = default;
+    Point(const Point &) = default;
     Point(Point&& p) noexcept;
 
     ~Point() = default;
@@ -17,29 +17,34 @@ public:
     double getX() const;
     double getY() const;
 
-    void setX(double x);
-    void setY(double y);
+    void setX(double);
+    void setY(double);
 
     double length() const ;
-    double distanceTo(const Point& other) const;
+    double distanceTo(const Point&) const;
 
-    Point& operator=(Point p);
-    Point& operator+=(Point p);
-    Point& operator-=(Point p);
-    Point& operator/(double i);
-    Point& operator*(double i);
+    Point& operator=(Point);
+    Point& operator+=(Point);
+    Point& operator-=(Point);
+    Point& operator/(double);
+    Point& operator*(double);
     Point& operator-();
-    friend std::ostream& operator<<(std::ostream& os, const Point& p);
-    friend std::istream& operator>>(std::istream& is, Point& p);
 
-    friend void swap(Point& a, Point& b);
+    bool operator==(const Point&);
+    bool operator!=(const Point&);
+    
+
+    friend std::ostream& operator<<(std::ostream&, const Point&);
+    friend std::istream& operator>>(std::istream&, Point&);
+
+    friend void swap(Point&, Point&);
 };
 
-bool operator==(const Point& a, const Point& b);
-Point operator+(const Point& p1, const Point& p2);
-Point operator-(const Point& p1, const Point& p2);
+bool operator==(const Point&, const Point&);
+Point operator+(const Point&, const Point&);
+Point operator-(const Point&, const Point&);
 
-Point operator+(const Point& point, double a);
-Point operator-(const Point& point, double a);
+Point operator+(const Point&, double);
+Point operator-(const Point&, double);
 
 

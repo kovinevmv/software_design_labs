@@ -27,5 +27,8 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Color& color);
     friend std::istream& operator>>(std::istream& is, Color& color);
 
+    bool operator==(const Color&);
+    bool operator!=(const Color&);
+
     friend void swap(Color& a, Color& b);   
 };

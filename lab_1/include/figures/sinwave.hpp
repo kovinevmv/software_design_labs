@@ -9,14 +9,12 @@ public:
     SinWave() {};
 
     std::vector<Point> getAllPoints() const override;
-
-    void move(Point delta) override;
+    void move(Point) override;
 
 protected:
-    std::ostream& info(std::ostream &o) const override;
+    std::ostream& info(std::ostream&) const override;
 
 private:
- 
     Point startPoint;
     Point endPoint;
         

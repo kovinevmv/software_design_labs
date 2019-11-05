@@ -12,21 +12,21 @@
 
 class Shape {
 public:
-    Shape(Color color = Color(0, 0, 0), Point centerPoint = Point(0, 0)): 
-                color(color), centerPoint(centerPoint){};
-
+    Shape(Color color = Color(0, 0, 0), Point centerPoint = Point(0, 0));
     virtual ~Shape() = default;
 
     virtual std::vector<Point> getAllPoints() const = 0;
-
-    virtual void move(Point delta);
+    virtual void move(Point);
 
     const Point& getCenterPoint() const;
+    const Color&  getColor() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
-    bool operator==(const Shape& other);
-    bool operator<(const Shape& other);
-    bool operator>(const Shape& other);
+    
+    bool operator==(const Shape&);
+    bool operator!=(const Shape&);
+    bool operator<(const Shape&);
+    bool operator>(const Shape&);
 
 protected:
     virtual std::ostream& info(std::ostream &o) const = 0;

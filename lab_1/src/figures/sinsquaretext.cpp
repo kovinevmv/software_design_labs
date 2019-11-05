@@ -10,8 +10,6 @@ SinSquareText::SinSquareText(SinSquare& sinSquare, Text& text) :
              SinSquare(sinSquare), Text(text) {};
 
 
-
-
 std::ostream& SinSquareText::info(std::ostream &os) const {
     os << "SinSquareText {";
     Text::info(os);

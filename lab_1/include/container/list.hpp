@@ -186,6 +186,7 @@ typename List<T>::iterator List<T>::erase(typename List<T>::iterator it){
     if (List<T>::empty()){
         throw std::runtime_error("Empty list");
     }
+    
     if (head->value == *it && size_ == 1){
         pop_front();
         return iterator();

@@ -1,8 +1,10 @@
 #include <cmath>
 #include "sinwave.hpp"
 
-SinWave::SinWave(Point startPoint, Point endPoint, double amplitude/* = 10*/, double frequency/* = 100*/, Color color/* = Color(0, 0, 0)*/)
-        : Shape(color), startPoint(startPoint), endPoint(endPoint), amplitude(amplitude), frequency(frequency) {
+SinWave::SinWave(Point startPoint, Point endPoint, double amplitude/* = 10*/,
+                 double frequency/* = 100*/, Color color/* = Color(0, 0, 0)*/)
+        : Shape(color), startPoint(startPoint), endPoint(endPoint), 
+          amplitude(amplitude), frequency(frequency) {
     centerPoint = (startPoint + endPoint) / 2;
 }
 
@@ -31,7 +33,7 @@ std::vector<Point> SinWave::getAllPoints() const {
 }
 
 std::ostream& SinWave::info(std::ostream &os) const {
-    return os << "SinWave {startPoint: " << startPoint << ", endPoint: "
+    return os << "SinWave (startPoint: " << startPoint << ", endPoint: "
               << endPoint << ", amplitude: " << amplitude << ", frequency: " 
-              << frequency << "}";
+              << frequency << ")";
 }
