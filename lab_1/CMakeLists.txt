@@ -23,7 +23,7 @@ set (FIGURES
         ${PREFIX_DIR_FIGURES_SRC}/sinwave.cpp
         )
 
-add_executable(main ${FIGURES} src/main.cpp)
+add_executable(main ${FIGURES} src/tests/test_figures.cpp)
 
 find_package(GTest REQUIRED)
 target_link_libraries(main ${GTEST_LIBRARIES} pthread)

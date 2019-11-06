@@ -11,28 +11,28 @@
 
 int main(){
     Point point(10, 20);
-    std::cout << point << std::endl;
+    std::cout << "Created point: " << point << std::endl;
 
     Color color1(10, 20, 30);
-    std::cout << color1 << std::endl;
+    std::cout << "Created color: "<< color1 << std::endl;
     
     Color color2("#FF0010");
-    std::cout << color2 <<std::endl;
+    std::cout << "Created color: "<< color2 <<std::endl;
 
     SinWave sinWave(Point(0, 0), Point(10, 20), 10, 2);
-    std::cout << sinWave << std::endl;
+    std::cout << "Created sinwave: "<< sinWave << std::endl;
 
     SinSquare sinSquare(Point(0, 1), Point(1, 0), 2, 3);
-    std::cout << sinSquare << std::endl;
+    std::cout << "Created sinSquare: " << sinSquare << std::endl;
 
     Text text("hello", Point(1, 0), Point(0, 1), Color(10, 20, 30), 14);
-    std::cout << text << std::endl;
+    std::cout << "Created text: "<< text << std::endl;
 
     SinSquareText sinSquareText(Point(0, 1), Point(0, 1), "test", 10, 100, Color(10, 20, 30), 14);
-    std::cout << sinSquareText << std::endl;
+    std::cout << "Created sinSquareText: " << sinSquareText << std::endl;
 
     SinSquareText sinSquareText2(sinSquare, text);
-    std::cout << sinSquareText2 << std::endl;
+    std::cout << "Created sinSquareText2: " << sinSquareText2 << std::endl;
     
     
     ListSet<int> listset;
@@ -57,19 +57,7 @@ int main(){
     listset.insert(-1);
 
 
-    std::cout << "List Nums: ";
-    for (auto it = listset.begin(); it != listset.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-
-    auto it = listset.begin();
-    auto it_2 = listset.erase(it);
-    std::cout << "It after delete first on: " << *it_2 << std::endl;
-    it_2 = listset.erase(it);
-    // TODO fix iterator pointer after erase
-    std::cout << "It after delet first on: " << *it_2 << std::endl;
-
-    std::cout << "List Nums: ";
+    std::cout << "ListSet of Nums: ";
     for (auto it = listset.begin(); it != listset.end(); it++)
         std::cout << *it << " ";
     std::cout << std::endl;
@@ -78,7 +66,7 @@ int main(){
     listsetfig.insert(&sinSquareText);
     listsetfig.insert(&sinSquareText);
 
-    std::cout << "List Figures: ";
+    std::cout << "ListSet of Figures: ";
     for (auto it = listsetfig.begin(); it != listsetfig.end(); it++){
         std::cout << *(*it) << ' ';
     }
