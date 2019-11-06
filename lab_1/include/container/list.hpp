@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <cstddef>
 
+#include "exceptions.hpp"
+
 template <class T>
 class Node{
     public:
@@ -130,8 +132,7 @@ template <class T>
 T List<T>::pop_back() {
     // Empty list
     if (head == nullptr){
-        // TODO my exception
-        throw std::runtime_error("Empty list");
+        throw DeleteFromEmptyList();
     }
     else{
         // One element in list
@@ -161,8 +162,7 @@ T List<T>::pop_back() {
 template <class T>
 T List<T>::pop_front() {
     if (head == nullptr){
-        // TODO my exception
-        throw std::runtime_error("Empty list");
+        throw DeleteFromEmptyList();
     }
     else {
         T value = head->value;
@@ -184,7 +184,7 @@ bool List<T>::empty() const {
 template <class T>
 typename List<T>::iterator List<T>::erase(typename List<T>::iterator it){
     if (List<T>::empty()){
-        throw std::runtime_error("Empty list");
+        throw DeleteFromEmptyList();
     }
     
     if (head->value == *it && size_ == 1){
@@ -346,7 +346,7 @@ ListIterator<T> ListIterator<T>::operator++(int){
 template <class T>
 void ListIterator<T>::validateIterator() const {
     if(!isValidIterator())
-        throw std::runtime_error("Invalid iterator");
+        throw InvalidIterator<T>(this->pnode->value);
 }
  
 template <class T>
