@@ -33,7 +33,7 @@
 
 
 # Vscode
-.vscode/*
+.vscode
 
 # Build folder
 build
