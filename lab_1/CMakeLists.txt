@@ -7,18 +7,24 @@ include_directories(
         src/figures
         include/figures
         include/container
-        )
+        include/exception
+        ${GTEST_INCLUDE_DIRS})
         
-set(SRC_PREFIX src/figures)        
+set(PREFIX_DIR_FIGURES_SRC src/figures) 
+       
 
 set (FIGURES
-        ${SRC_PREFIX}/point.cpp
-        ${SRC_PREFIX}/color.cpp
-        ${SRC_PREFIX}/shape.cpp
-        ${SRC_PREFIX}/text.cpp
-        ${SRC_PREFIX}/sinsquaretext.cpp
-        ${SRC_PREFIX}/sinsquare.cpp
-        ${SRC_PREFIX}/sinwave.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/point.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/color.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/shape.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/text.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/sinsquaretext.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/sinsquare.cpp
+        ${PREFIX_DIR_FIGURES_SRC}/sinwave.cpp
         )
 
-add_executable(main ${FIGURES} src/main.cpp)
+add_executable(main ${FIGURES} src/tests/test_figures.cpp)
+
+find_package(GTest REQUIRED)
+target_link_libraries(main ${GTEST_LIBRARIES} pthread)
+
