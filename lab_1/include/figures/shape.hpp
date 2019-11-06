@@ -19,7 +19,8 @@ public:
     virtual void move(Point);
 
     const Point& getCenterPoint() const;
-    const Color&  getColor() const;
+    const Color& getColor() const;
+    void setColor(const Color&);
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
     

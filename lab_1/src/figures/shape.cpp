@@ -15,6 +15,10 @@ const Color& Shape::getColor() const{
     return color;
 }
 
+void Shape::setColor(const Color& color){
+    this->color = color;
+}
+
 void Shape::move(Point delta) {
     centerPoint += delta;
 }

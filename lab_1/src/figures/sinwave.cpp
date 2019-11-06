@@ -15,6 +15,14 @@ void SinWave::move(Point delta) {
     endPoint += delta;
 }
 
+double SinWave::getAmplitude() const{
+    return this->amplitude;
+}
+
+double SinWave::getFrequency() const{
+    return this->frequency;
+}
+
 std::vector<Point> SinWave::getAllPoints() const {
     auto points = std::vector<Point>();
 

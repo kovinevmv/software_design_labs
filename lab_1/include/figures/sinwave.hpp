@@ -11,6 +11,9 @@ public:
     std::vector<Point> getAllPoints() const override;
     void move(Point) override;
 
+    double getAmplitude() const;
+    double getFrequency() const;
+
 protected:
     std::ostream& info(std::ostream&) const override;
 

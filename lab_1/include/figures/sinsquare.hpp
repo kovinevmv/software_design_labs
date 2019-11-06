@@ -16,18 +16,8 @@ protected:
     std::ostream& info(std::ostream &os) const override;
 
 private:
-    void updateSides();
+    void updateSides(double, double);
 
-    Point leftUp;
-    Point leftDown;
-    Point rightUp;
-    Point rightDown;
-
-    SinWave leftSide;
-    SinWave rightSide;
-    SinWave upSide;
-    SinWave downSide;
-    
-    double amplitude;
-    double frequency;
+    std::vector<Point> points;
+    std::vector<SinWave> sides;
 };

@@ -21,6 +21,4 @@ private:
     int textSize;
     Point leftUpText;
     Point rigthDownText;
-    
-    std::vector<Point> getRect();
 };
