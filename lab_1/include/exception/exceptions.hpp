@@ -16,13 +16,16 @@ inline std::ostream &operator<<(std::ostream &os, const Exception &ex) {
     return ex.info(os);
 }
 
+template <typename T>
 class DeleteFromEmptyList: public Exception {
 public:
-    explicit DeleteFromEmptyList(){};
+    explicit DeleteFromEmptyList(T iterator){};
 protected:
     std::ostream& info(std::ostream &o) const override {
-        return o << "Delete from elemet from empty list";
+        return o << "Delete from elemet from empty list. Head is " << iterator;
     }
+private:
+    T iterator;
 };
 
 

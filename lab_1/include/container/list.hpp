@@ -132,7 +132,7 @@ template <class T>
 T List<T>::pop_back() {
     // Empty list
     if (head == nullptr){
-        throw DeleteFromEmptyList();
+        throw DeleteFromEmptyList<Node<T>*>(head);
     }
     else{
         // One element in list
@@ -162,7 +162,7 @@ T List<T>::pop_back() {
 template <class T>
 T List<T>::pop_front() {
     if (head == nullptr){
-        throw DeleteFromEmptyList();
+        throw DeleteFromEmptyList<Node<T>*>(head);
     }
     else {
         T value = head->value;
@@ -184,7 +184,7 @@ bool List<T>::empty() const {
 template <class T>
 typename List<T>::iterator List<T>::erase(typename List<T>::iterator it){
     if (List<T>::empty()){
-        throw DeleteFromEmptyList();
+        throw DeleteFromEmptyList<Node<T>*>(head);
     }
     
     if (head->value == *it && size_ == 1){

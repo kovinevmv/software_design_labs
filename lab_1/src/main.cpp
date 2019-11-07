@@ -72,6 +72,18 @@ int main(){
     }
     std::cout << std::endl;
     
+    List<int> list;
+    list.push_back(1);
+    list.pop_back();
+    try{
+        list.pop_back();
+
+    }
+    catch(Exception& ex){
+        std::cout << ex;
+    }
+    
+
 
     return 0;
 }
