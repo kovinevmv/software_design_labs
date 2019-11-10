@@ -45,11 +45,11 @@ public:
  
     List<T>& operator=(const List<T>&);
  
-    iterator begin();
-    iterator end();
+    iterator begin() const;
+    iterator end() const;
 
-    const_iterator cbegin();
-    const_iterator cend();
+    const_iterator cbegin() const;
+    const_iterator cend() const;
 
 protected:
     Node<T>* head;
@@ -219,22 +219,22 @@ List<T>& List<T>::operator=(const List<T>& other) {
 }
 
 template <class T>
-typename List<T>::iterator List<T>::begin() {
+typename List<T>::iterator List<T>::begin() const {
     return iterator(head);
 }
 
 template <class T>
-typename List<T>::iterator List<T>::end() {
+typename List<T>::iterator List<T>::end() const {
     return iterator();
 }
 
 template <class T>
-typename List<T>::const_iterator List<T>::cbegin() {
-    return const_iterator(*head);
+typename List<T>::const_iterator List<T>::cbegin() const {
+    return const_iterator(head);
 }
 
 template <class T>
-typename List<T>::const_iterator List<T>::cend() {
+typename List<T>::const_iterator List<T>::cend() const {
     return const_iterator();
 }
 
@@ -245,13 +245,13 @@ size_t List<T>::size() const{
 
 template <class T>
 void List<T>::clear() {
-    auto current = head;
-    while (current) {
-        auto temp = current->next;
+    Node<T>* current = head;
+    while( current != 0 ) {
+        Node<T>* next = current->next;
         delete current;
-        current = temp;
+        current = next;
     }
-    size_ = 0;
+    head = 0;
 }
 
 

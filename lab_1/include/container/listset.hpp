@@ -14,7 +14,7 @@ public:
     ListSet(const ListSet<T>&);
     ~ListSet();
 
-    ListSet<T>& operator=(const ListSet<T>&);
+    ListSet<T>& operator=(ListSet<T>&);
     void insert(const T&);
     bool empty() const;
 
@@ -24,11 +24,19 @@ public:
     iterator find(const T&);
     const_iterator find(const T&) const;
 
+    ListSet<T>& operator+(const ListSet<T>& other);
+    ListSet<T>& operator-(const ListSet<T>& other);
+
+    ListSet<T> intersectionWith(const ListSet<T>& other);
+
+    bool operator==(const ListSet<T>& other);
+    bool operator!=(const ListSet<T>& other);
+
     size_t count(const T&) const;
     size_t size() const;
     
-    iterator begin();
-    iterator end();
+    iterator begin() const;
+    iterator end() const;
 
     const_iterator cbegin() const;
     const_iterator cend() const;
@@ -50,7 +58,7 @@ ListSet<T>::~ListSet() {
 }
 
 template <class T>
-ListSet<T>& ListSet<T>::operator=(const ListSet<T>& other) {
+ListSet<T>& ListSet<T>::operator=(ListSet<T>& other) {
     for(auto it = other.begin(); it != other.end(); it++)
         List<T>::push_back(*it);
 
@@ -60,11 +68,13 @@ ListSet<T>& ListSet<T>::operator=(const ListSet<T>& other) {
 
 template <class T>
 void ListSet<T>::insert(const T& value){
-    if (List<T>::empty()){
+    if (this->empty()){
         List<T>::push_back(value);
         return;
     }
-    if (find(value) == nullptr){
+
+    auto iteratorOnFoundElement = this->find(value);
+    if (iteratorOnFoundElement == nullptr){
         for (auto it = begin(); it != end(); it++){
             if (*it > value){
                 List<T>::insert(it, value);
@@ -73,7 +83,6 @@ void ListSet<T>::insert(const T& value){
         }
         List<T>::push_back(value);
     }
-    
 }
 
 template <class T>
@@ -103,7 +112,6 @@ typename ListSet<T>::iterator ListSet<T>::find(const T& value){
 
 template <class T>
 typename ListSet<T>::const_iterator ListSet<T>::find(const T& value) const{
-    std::cout << "Find call\n";
     for (auto it = cbegin(); it != cend(); it++){
         if (*it == value){
             return it;
@@ -129,12 +137,12 @@ size_t ListSet<T>::size() const{
 }
 
 template <class T>
-typename ListSet<T>::iterator ListSet<T>::begin() {
+typename ListSet<T>::iterator ListSet<T>::begin() const {
     return List<T>::begin();
 }
  
 template <class T>
-typename ListSet<T>::iterator ListSet<T>::end() {
+typename ListSet<T>::iterator ListSet<T>::end() const {
     return List<T>::end();
 }
 
@@ -148,4 +156,49 @@ typename ListSet<T>::const_iterator ListSet<T>::cend() const{
     return List<T>::cend();
 }
 
+template <class T>
+ListSet<T>& ListSet<T>::operator+(const ListSet<T>& other){
+    for (auto it = other.begin(); it != other.end(); it++){
+        this->insert(*it);
+    }
+    return *this;
+}
 
+template <class T>
+ListSet<T>& ListSet<T>::operator-(const ListSet<T>& other){
+    for (auto it = other.begin(); it != other.end(); it++){
+        auto iteratorOnFoundValue = this->find(*it);
+        if (iteratorOnFoundValue != nullptr){
+            this->erase(iteratorOnFoundValue);
+        }
+    }
+    return *this;
+}
+
+template <typename T>
+ListSet<T> ListSet<T>::intersectionWith(const ListSet<T>& other){
+    return *this - (*this - other);
+}
+
+template <class T>
+bool ListSet<T>::operator==(const ListSet<T>& other){
+    if (this->size() != other.size()){
+        return false;
+    }
+
+    // A=B <=> A ⊆ B, B ⊆ A <=> ∀k∈A k⊂B && ∀k∈B k⊂A 
+    for (auto it = other.begin(); it != other.end(); it++){
+        if(this->find(*it) == nullptr)
+            return false;
+    }
+    for (auto it = this->begin(); it != this->end(); it++){
+        if(other.find(*it) == nullptr)
+            return false;
+    }
+    return true;
+}
+
+template <class T>
+bool ListSet<T>::operator!=(const ListSet<T>& other){
+    return !(*this == other);
+}
