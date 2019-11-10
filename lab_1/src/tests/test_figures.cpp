@@ -120,13 +120,20 @@ TEST(container, container){
 TEST(container, addFigures){
     SinWave sinWave(Point(0, 0), Point(10, 20), 10, 2);
     Text text("hello", Point(1, 0), Point(0, 1), Color(10, 20, 30), 14);
+	SinSquare sinSquare(Point(0, 1), Point(1, 0), 2, 3);
+    SinSquareText sinSquareText(Point(0, 1), Point(0, 1), "test", 10, 100, Color(10, 20, 30), 14);
+    SinSquareText sinSquareText2(sinSquare, text);
+
 
     ListSet<Shape*> listset;
     listset.insert(&sinWave);
     listset.insert(&text);
-
-    // Expect added 2 figures
-    EXPECT_EQ(listset.size(), 2);
+	listset.insert(&sinSquare);
+	listset.insert(&sinSquareText);
+	listset.insert(&sinSquareText2);
+	
+    // Expect added 5 figures
+    EXPECT_EQ(listset.size(), 5);
     
     // First figure sinWave
     auto it = listset.begin();
