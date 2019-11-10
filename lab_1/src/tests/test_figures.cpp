@@ -117,6 +117,123 @@ TEST(container, container){
         EXPECT_EQ(correct[i], *it);
 }
 
+TEST(container, addFigures){
+    SinWave sinWave(Point(0, 0), Point(10, 20), 10, 2);
+    Text text("hello", Point(1, 0), Point(0, 1), Color(10, 20, 30), 14);
+
+    ListSet<Shape*> listset;
+    listset.insert(&sinWave);
+    listset.insert(&text);
+
+    // Expect added 2 figures
+    EXPECT_EQ(listset.size(), 2);
+    
+    // First figure sinWave
+    auto it = listset.begin();
+    EXPECT_EQ((*it)->getCenterPoint().getX(), sinWave.getCenterPoint().getX());
+    EXPECT_EQ((*it)->getCenterPoint().getY(), sinWave.getCenterPoint().getY());
+
+    // Next figure
+    it++;
+    EXPECT_EQ((*it)->getCenterPoint().getX(), text.getCenterPoint().getX());
+    EXPECT_EQ((*it)->getCenterPoint().getY(), text.getCenterPoint().getY());
+}
+
+TEST(container, addSimiliarFigures){
+    ListSet<Shape*> listset;
+
+    SinWave sinWave(Point(0, 0), Point(10, 20), 10, 2);
+
+    listset.insert(&sinWave);
+    listset.insert(&sinWave);
+    listset.insert(&sinWave);
+    listset.insert(&sinWave);
+    listset.insert(&sinWave);
+    listset.insert(&sinWave);
+
+    EXPECT_EQ(listset.size(), 1);
+}
+
+TEST(container, testUnion){
+    ListSet<int> listset1;
+    ListSet<int> listset2;
+
+    std::vector<int> v1 = {1, 2, 3, 4, 5};
+    std::vector<int> v2 = {4, 5, 6, 7};
+    std::vector<int> expected_union = {1, 2, 3, 4, 5, 6, 7};
+    
+    for (auto& v : v1)
+        listset1.insert(v);
+
+    for (auto& v : v2)
+        listset2.insert(v);
+
+    ListSet<int> unionList = listset1 + listset2;
+
+    size_t i =0;
+    for (auto it = unionList.begin(); it != unionList.end(); it++){
+        EXPECT_EQ(*it, expected_union[i++]);
+    }        
+}
+
+TEST(container, testIntersection){
+    ListSet<int> listset1;
+    ListSet<int> listset2;
+
+    std::vector<int> v1 = {1, 2, 3, 4, 5};
+    std::vector<int> v2 = {4, 5, 6, 7};
+    std::vector<int> expected_intersection = {4, 5};
+    
+    for (auto& v : v1)
+        listset1.insert(v);
+
+    for (auto& v : v2)
+        listset2.insert(v);
+
+    ListSet<int> intersectionList = listset1.intersectionWith(listset2);
+
+    int i = 0;
+    for (auto it = intersectionList.begin(); it != intersectionList.end(); it++){
+        EXPECT_EQ(*it, expected_intersection[i++]);
+    }        
+}
+
+TEST(container, testDiv){
+    ListSet<int> listset1;
+    ListSet<int> listset2;
+
+    std::vector<int> v1 = {1, 2, 3, 4, 5};
+    std::vector<int> v2 = {4, 5, 6, 7};
+    std::vector<int> expected_div = {1, 2, 3};
+    
+    for (auto& v : v1)
+        listset1.insert(v);
+
+    for (auto& v : v2)
+        listset2.insert(v);
+
+    ListSet<int> divList = listset1 - listset2;
+
+    int i =0;
+    for (auto it = divList.begin(); it != divList.end(); it++){
+        EXPECT_EQ(*it, expected_div[i++]);
+    }        
+}
+
+
+TEST(container, testEqual){
+    ListSet<int> listset1;
+    ListSet<int> listset2;
+
+    std::vector<int> v1 = {1, 2, 3, 4, 5};
+
+    for (auto& v : v1){
+        listset1.insert(v);
+        listset2.insert(v);
+    }
+
+    EXPECT_EQ(listset2 == listset1, true);
+}
 
 
 int main(int argc, char *argv[])
