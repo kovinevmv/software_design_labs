@@ -50,6 +50,9 @@ public slots:
 
     void on_action_3_triggered();
 
+    void on_random_color_clicked();
+
+
 private:
 
     ShapeScene* get_cur_scene();
@@ -61,6 +64,7 @@ private:
     ShapeType cur_shape_type;
     int cur_size;
     int num_scenes = 1;
+    bool is_random_color = false;
 
 private slots:
 

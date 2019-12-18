@@ -269,6 +269,13 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QCheckBox" name="random_color">
+                <property name="text">
+                 <string>Произвольный цвет</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>

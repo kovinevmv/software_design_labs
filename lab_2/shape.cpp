@@ -96,3 +96,22 @@ void Shape::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 
     Q_UNUSED(event)
 }
+
+QColor Shape::get_color() const{
+    return m_color;
+}
+
+QRectF Shape::get_rect() const{
+    return m_rect;
+}
+
+
+bool Shape::operator==(const Shape& other){
+    return this->m_color == other.get_color() &&
+           this->m_rect == other.get_rect() &&
+           this->get_type() == other.get_type();
+}
+
+bool Shape::operator!=(const Shape& other){
+    return !(*this == other);
+}

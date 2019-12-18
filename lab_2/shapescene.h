@@ -41,6 +41,8 @@ public:
     void set_sin_amplitude(double amplitude);
     void set_sin_freq(double freq);
 
+    void set_is_random_color(bool is_random_color_);
+
 signals:
 
     void animation_on_scene_end();
@@ -48,6 +50,8 @@ signals:
 private:
 
     QColor m_create_color;
+    bool is_random_color;
+
     int m_create_size;
 
     double m_ampl;

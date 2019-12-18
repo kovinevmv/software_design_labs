@@ -14,6 +14,7 @@
 #include <QDataStream>
 #include <QSplitter>
 #include <QFile>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -238,4 +239,12 @@ void MainWindow::on_action_3_triggered() {
 
         cur_shape_scene->iterate_container();
     }
+}
+
+void MainWindow::on_random_color_clicked(){
+    is_random_color ^= true;
+    auto cur_shape_scene = get_cur_scene();
+    cur_shape_scene->set_is_random_color(is_random_color);
+
+    qDebug() << "Clicked random color" << is_random_color;
 }

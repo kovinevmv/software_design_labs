@@ -10,6 +10,7 @@
 #include <QTextStream>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QDebug>
 
 #include <exception>
 
@@ -25,6 +26,8 @@ ShapeScene::ShapeScene(QObject *parent)
 
     m_ampl = 100;
     m_freq = 10.0 / 200;
+
+    is_random_color = false;
 
     connect(m_animation, &QPropertyAnimation::finished, this, &ShapeScene::animation_frame_finished);
 }
@@ -176,7 +179,7 @@ void ShapeScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
                         }
                     }
                     m_delete_later.clear();
-                    m_figures.erase(m_figures.find(item));
+                    m_figures.erase(m_figures.find(dynamic_cast<Shape*>(item)));
 
                 } catch (...) {
                 }
@@ -186,15 +189,19 @@ void ShapeScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
         if (event->button() == Qt::LeftButton) {
             QString text;
 
+            QColor current_color = m_create_color;
+            if (is_random_color){
+                current_color = QColor(rand() % 256, rand() % 256, rand() % 256);
+            }
             switch (m_shape_type) {
 
                 case ShapeType::Square:
 
-                    item = new Square(m_create_color, m_create_size, m_ampl, m_freq);
+                    item = new Square(current_color, m_create_size, m_ampl, m_freq);
                     break;
 
                 case ShapeType::SinWave:
-                    item = new SinWave(m_create_color, m_create_size, QPointF(-1, 0), QPointF(1, 0), m_ampl, m_freq);
+                    item = new SinWave(current_color, m_create_size, QPointF(-1, 0), QPointF(1, 0), m_ampl, m_freq);
                     break;
 
                 case ShapeType::Text:
@@ -205,7 +212,7 @@ void ShapeScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
                     if (text.isEmpty()) {
                         return;
                     } else {
-                        item = new Text(m_create_color, m_create_size, text);
+                        item = new Text(current_color, m_create_size, text);
                     }
 
                     break;
@@ -217,17 +224,38 @@ void ShapeScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
                     if (text.isEmpty()) {
                         return;
                     } else {
-                        item = new SquareWithText(m_create_color, m_create_size, text, m_ampl, m_freq);
+                        item = new SquareWithText(current_color, m_create_size, text, m_ampl, m_freq);
                     }
 
                     break;
             }
 
-            item->setPos(event->scenePos());
+            bool is_finded = false;
+            for (auto it = m_figures.begin(); it != m_figures.end(); it++) {
 
-            this->addItem(item);
+                auto figure = dynamic_cast<Shape*>(item);
+                qDebug() << figure->get_color() << (*it)->get_color();
+                if (figure->get_color() == (*it)->get_color() &&
+                    figure->get_type() == (*it)->get_type() &&
+                    figure->get_rect() == (*it)->get_rect()){
+                        QMessageBox msgBox;
+                        msgBox.setWindowTitle("Внимание");
+                        msgBox.setText("Фигура уже добавлена");
+                        msgBox.exec();
+                        is_finded = true;
+                    }
+            }
 
-            m_figures.insert(dynamic_cast<Shape*>(item));
+            if (is_finded == false){
+                item->setPos(event->scenePos());
+                this->addItem(item);
+                m_figures.insert(dynamic_cast<Shape*>(item));
+            }
         }
     }
+}
+
+
+void ShapeScene::set_is_random_color(bool is_random_color_){
+    is_random_color = is_random_color_;
 }

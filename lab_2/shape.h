@@ -32,6 +32,13 @@ public:
 
     Shape(QDataStream& stream);
 
+    QColor get_color() const;
+    QRectF get_rect() const;
+
+    bool operator==(const Shape&);
+    bool operator!=(const Shape&);
+
+
 protected:
     QColor m_color;
     QColor temp_color;
