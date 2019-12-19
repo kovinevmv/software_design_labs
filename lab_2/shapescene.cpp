@@ -179,7 +179,7 @@ void ShapeScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
                         }
                     }
                     m_delete_later.clear();
-                    m_figures.erase(m_figures.find(dynamic_cast<Shape*>(item)));
+                    m_figures.erase(m_figures.find(item));
 
                 } catch (...) {
                 }
